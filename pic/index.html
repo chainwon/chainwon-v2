@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>轻惋图片CDN</title>
+	<style>
+		img {
+			width: 100%;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<input type="file" id="选图">
+	<img id="图片">
+	<p id="文本"></p>
+	<script src="./js/up.itorr.js"></script>
+	<script>
+		选图.onchange = function() {
+			if (!this.files || !this.files[0])
+				return alert('选取文件出错！')
+
+			var
+				图片文件 = this.files[0]
+
+			if (图片文件.type.indexOf('image') != 0)
+				return alert('这不是一个图像或音频！')
+
+			UP(图片文件, function(pid) {
+				文本.innerHTML =
+					图片.src = 'https://ws2.sinaimg.cn/large/' + pid + '.jpg'
+
+			}, function() {
+				alert('上传文件出错了！')
+			}, function(进度) {
+				文本.innerHTML = 进度 * 100 + '%'
+			})
+		}
+	</script>
+
+</body>
+</html>
